@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>VXNN LIFE</title>
+  <meta name="theme-color" content="#05070b"/>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <section class="screen active" id="home">
+      <div class="hero">
+        <div class="shade"></div>
+        <div class="top">
+          <button class="iconBtn" id="notifyBtn">🔔</button>
+          <div class="brand">VXNN LIFE</div>
+          <button class="iconBtn" id="voiceBtn">🎧</button>
+        </div>
+        <div class="heroText">
+          <p class="badge">PERSONAL GROWTH SYSTEM</p>
+          <h1>Sᴀɪ Cʜᴀʀᴀɴ ⚡</h1>
+          <p class="quote">“Discipline today, freedom tomorrow.”</p>
+        </div>
+      </div>
+
+      <div class="statsRow">
+        <div class="stat"><b id="streakDays">0</b><span>Streak</span></div>
+        <div class="stat"><b id="focusScore">0%</b><span>Focus</span></div>
+        <div class="stat"><b id="xpValue">0</b><span>XP</span></div>
+      </div>
+
+      <div class="card glow">
+        <h2>Today’s Mission</h2>
+        <label><input type="checkbox" class="habit" data-id="workout" data-xp="30"> Workout</label>
+        <label><input type="checkbox" class="habit" data-id="skill" data-xp="40"> Skill Learning</label>
+        <label><input type="checkbox" class="habit" data-id="phone" data-xp="30"> No Phone Distraction</label>
+        <button class="primary" id="saveDay">Save Today</button>
+      </div>
+
+      <div class="card">
+        <h2>Quick Motivation</h2>
+        <p id="motivationText">You don’t find willpower. You create it.</p>
+        <button class="secondary" id="newQuote">New Quote</button>
+      </div>
+    </section>
+
+    <section class="screen" id="goals">
+      <h1>Goals 🎯</h1>
+      <div class="goal"><b>Learn New Skills</b><span>Build strong foundation and master useful skills.</span><progress value="70" max="100"></progress></div>
+      <div class="goal"><b>Build Foundation</b><span>Develop discipline, focus, and daily routine.</span><progress value="60" max="100"></progress></div>
+      <div class="goal"><b>Use My Knowledge</b><span>Apply skills steadily and create real value.</span><progress value="40" max="100"></progress></div>
+      <div class="goal"><b>Make Parents Proud</b><span>Become financially strong and independent.</span><progress value="55" max="100"></progress></div>
+    </section>
+
+    <section class="screen" id="tracker">
+      <h1>Tracker 📊</h1>
+      <div class="card">
+        <h2>7-Day Progress</h2>
+        <div id="weekGrid" class="weekGrid"></div>
+      </div>
+      <div class="card">
+        <h2>Level System</h2>
+        <p>Level: <b id="levelName">Starter</b></p>
+        <div class="bar"><div id="levelBar"></div></div>
+      </div>
+    </section>
+
+    <section class="screen" id="mind">
+      <h1>Mindset 🧠</h1>
+      <div class="rule">No excuses. Action builds identity.</div>
+      <div class="rule">Discipline beats motivation.</div>
+      <div class="rule">Focus on progress, not comparison.</div>
+      <div class="rule">Pain is temporary. Pride is forever.</div>
+    </section>
+
+    <section class="screen" id="future">
+      <h1>Future Me 🚀</h1>
+      <div class="card future">
+        <h2>A Message to My Future Self</h2>
+        <p>I will make my parents proud. No matter what happens, I won’t quit. I will keep going until I achieve everything I dream of.</p>
+      </div>
+      <div class="card">
+        <h2>Online Data Setup</h2>
+        <p>This version saves data offline. To save online, connect Firebase in <b>firebase-config.js</b>.</p>
+      </div>
+    </section>
+
+    <nav>
+      <button data-tab="home">⌂<span>Home</span></button>
+      <button data-tab="goals">◎<span>Goals</span></button>
+      <button data-tab="tracker">▣<span>Track</span></button>
+      <button data-tab="mind">✦<span>Mind</span></button>
+      <button data-tab="future">✉<span>Future</span></button>
+    </nav>
+  </div>
+
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
