@@ -120,12 +120,16 @@ setInterval(() => {
     }
   });
 }, 30000);
-// 🔒 FOCUS MODE
+// 🔒 ADVANCED FOCUS MODE (POMODORO)
+
 const focusBtn = document.getElementById("focusBtn");
 
 if (focusBtn) {
   focusBtn.onclick = () => {
-    let seconds = 30 * 60;
+
+    let mode = "focus"; // focus or break
+    let seconds = 25 * 60; // 25 min
+    let timer = null;
 
     document.body.innerHTML = `
       <div style="
@@ -137,32 +141,84 @@ if (focusBtn) {
         align-items:center;
         justify-content:center;
         text-align:center;
-        padding:25px;
         font-family:Arial;
+        padding:20px;
       ">
         <h1 style="color:#42e1ff;">FOCUS MODE 🔒</h1>
-        <h2 id="focusTimer">30:00</h2>
-        <p>No distractions. Build your future.</p>
+        <h2 id="modeText">Focus Time</h2>
+        <h1 id="focusTimer" style="font-size:40px;">25:00</h1>
+
+        <div style="margin-top:20px;">
+          <button id="pauseBtn">⏸ Pause</button>
+          <button id="resumeBtn">▶ Resume</button>
+          <button id="restartBtn">🔄 Restart</button>
+        </div>
+
+        <p style="margin-top:20px;">No distractions. Build your future.</p>
       </div>
     `;
 
-    const timer = setInterval(() => {
-      seconds--;
-
+    const updateDisplay = () => {
       const m = Math.floor(seconds / 60);
       const s = seconds % 60;
+      document.getElementById("focusTimer").textContent =
+        `${m}:${s.toString().padStart(2,"0")}`;
+    };
 
-      const timerBox = document.getElementById("focusTimer");
-      if (timerBox) {
-        timerBox.textContent = `${m}:${s.toString().padStart(2, "0")}`;
-      }
+    const speak = (text) => {
+      const voice = new SpeechSynthesisUtterance(text);
+      voice.rate = 0.9;
+      speechSynthesis.speak(voice);
+    };
 
-      if (seconds <= 0) {
-        clearInterval(timer);
-        alert("Focus complete 🔥 Great job!");
-        location.reload();
+    const notify = (text) => {
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("VXNN LIFE ⚡", { body: text });
       }
-    }, 1000);
+    };
+
+    const startTimer = () => {
+      timer = setInterval(() => {
+        seconds--;
+        updateDisplay();
+
+        if (seconds <= 0) {
+          clearInterval(timer);
+
+          if (mode === "focus") {
+            mode = "break";
+            seconds = 5 * 60; // 5 min break
+            document.getElementById("modeText").textContent = "Break Time 🧘";
+
+            speak("Take a break. Relax for five minutes.");
+            notify("Break time. Relax now.");
+
+          } else {
+            mode = "focus";
+            seconds = 25 * 60;
+            document.getElementById("modeText").textContent = "Focus Time 🔒";
+
+            speak("Back to work. Stay focused.");
+            notify("Focus again. Let's go.");
+          }
+
+          startTimer();
+        }
+      }, 1000);
+    };
+
+    startTimer();
+
+    document.getElementById("pauseBtn").onclick = () => {
+      clearInterval(timer);
+    };
+
+    document.getElementById("resumeBtn").onclick = () => {
+      startTimer();
+    };
+
+    document.getElementById("restartBtn").onclick = () => {
+      location.reload();
+    };
   };
 }
-    
