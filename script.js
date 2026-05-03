@@ -120,4 +120,49 @@ setInterval(() => {
     }
   });
 }, 30000);
+// 🔒 FOCUS MODE
+const focusBtn = document.getElementById("focusBtn");
+
+if (focusBtn) {
+  focusBtn.onclick = () => {
+    let seconds = 30 * 60;
+
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        background:#02050a;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        padding:25px;
+        font-family:Arial;
+      ">
+        <h1 style="color:#42e1ff;">FOCUS MODE 🔒</h1>
+        <h2 id="focusTimer">30:00</h2>
+        <p>No distractions. Build your future.</p>
+      </div>
+    `;
+
+    const timer = setInterval(() => {
+      seconds--;
+
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+
+      const timerBox = document.getElementById("focusTimer");
+      if (timerBox) {
+        timerBox.textContent = `${m}:${s.toString().padStart(2, "0")}`;
+      }
+
+      if (seconds <= 0) {
+        clearInterval(timer);
+        alert("Focus complete 🔥 Great job!");
+        location.reload();
+      }
+    }, 1000);
+  };
+}
     
